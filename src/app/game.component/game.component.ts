@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
     templateUrl: 'game.component.html'
 })
 export default class GameComponent {
-    static GAME_DURATION: number = 4
+    static GAME_DURATION: number = 1
     static TIMER_TICK_DURATON: number = 500
     static WINS_MAP = {
         rock: {paper: false, scissors: true},
@@ -31,6 +31,7 @@ export default class GameComponent {
     userSelection: string;
     aiSelection: string;
     TYPES = ['rock', 'paper', 'scissors']
+    history = []
 
     constructor() {
         this.status = GameComponent.STATUSES['initial'];
@@ -90,16 +91,17 @@ export default class GameComponent {
             this.aiSelection = this.getRandomCard();
         }
 
+        let type;
         if (this.userSelection === this.aiSelection) {
-            this.status = GameComponent.STATUSES['nobodyWin']
-            this.stats['nobodyWin']++;
+            type ='nobodyWin';
         } else if (GameComponent.WINS_MAP[this.userSelection][this.aiSelection]) {
-            this.status = GameComponent.STATUSES['win'];
-            this.stats['win']++;
+            type ='win';
         } else {
-            this.status = GameComponent.STATUSES['lose']
-            this.stats['lose']++;
+            type ='lose';
         }
+        this.status = GameComponent.STATUSES[type]
+        this.stats[type]++;
+        this.history.push({user: this.userSelection, ai: this.aiSelection, type: type})
     }
 
     protected getRandomCard(): string {

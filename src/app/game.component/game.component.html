@@ -18,6 +18,13 @@
     </div>
 </div>
 
+<div class="history-data">
+    <div *ngFor="let item of history" class="history-data-row {{item.type}}">
+        <div class="scaled-history-image"><div  class="hand-image {{item.user}}"></div></div>
+        <div class="scaled-history-image"><div  class="hand-image {{item.ai}}"></div></div>
+    </div>
+</div>
+
 <button (click)="play()" *ngIf="!isRunning()"> {{isStarted() ? 'PLAY AGAIN': 'START'}}</button>
 <div *ngIf="isStarted()" class="stats">
     won / lose / nobody / total
