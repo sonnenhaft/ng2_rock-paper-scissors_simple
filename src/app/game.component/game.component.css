@@ -8,11 +8,10 @@
     background-image: url('/assets/ROCK-PAPER-SCISSORS.png');
     width: 125px;
     height: 124px;
-    background-position-x: -24px;
-    background-position-y: -22px;
     border-radius: 150px;
     transform: rotate(-210deg);
     border: 4px solid white;
+    background-position: -24px -22px;
 }
 
 .hand-image.selected {
@@ -30,14 +29,12 @@
 }
 
 .hand-image.paper {
-    background-position-x: -153px;
-    background-position-y: -60px;
+    background-position: -153px -60px;
 }
 
 .hand-image.scissors {
-    background-position-x: -57px;
-    background-position-y: -146px;
     transform: scale(-1, 1);
+    background-position: -57px -146px;
 }
 
 .hand-image.mirror.paper {
