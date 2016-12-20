@@ -1,41 +1,23 @@
-<div class="card-container">
-  <h1 x-large class="sample-content">Your Content Here</h1>
+<h1>ROCK-PAPER SCISSORS</h1>
 
-  <div>
-    For material design components use the <a href="https://github.com/AngularClass/angular2-webpack-starter/tree/material2"><b>material2</b></a> branch
-  </div>
+<div *ngIf="!isGameStarted">lalala before game started</div>
+<button (click)="play()">Click me!</button>
 
-  <hr>
-
-  <div>
-    For hot module reloading run
-    <pre>npm run start:hmr</pre>
-  </div>
-
-  <hr>
-
-  <div>
-    <h4>Local State</h4>
-
-    <form (ngSubmit)="submitState(localState.value)" autocomplete="off">
-
-      <input
-        [value]="localState.value"
-        (input)="localState.value = $event.target.value"
-        placeholder="Submit Local State to App State"
-        autofocus>
-
-      <button md-raised-button color="primary">Submit Value</button>
-    </form>
-    <!--
-        <input type="text" [value]="localState.value" (input)="localState.value = $event.target.value" autofocus>
-        Rather than wiring up two-way data-binding ourselves with [value] and (input)
-        we can use Angular's [(ngModel)] syntax
-        <input type="text" name="textInput" [(ngModel)]="localState.value" autofocus>
-      -->
-
-    <pre>this.localState = {{ localState | json }}</pre>
-
-  </div>
-
+<div class="flexy" style="    transform: scale(0.5);">
+    <div class="main-image {{type}}"  [ngClass]="{selected: type === userSelection}"
+         *ngFor="let type of TYPES"
+         (click)="selectClass(type)" title="{{type}}">
+    </div>
 </div>
+
+<div class="flexy">
+    <div [ngClass]="{animated: !userSelection && interval}">
+        <div class="main-image" [ngClass]="getClass(userSelection)" title="{{userSelection}}"></div>
+    </div>
+    <div *ngIf="isGameStarted" class="time">{{time}}</div>
+    <div [ngClass]="{animated: interval}" class="mirror-animated">
+        <div class="main-image mirror" [ngClass]="getClass(aiSelection)"  title="{{aiSelection}}"></div>
+    </div>
+</div>
+
+<div>{{status}}</div>

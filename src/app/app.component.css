@@ -6,3 +6,9 @@ html, body{
 span.active {
   background-color: gray;
 }
+
+footer {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+}
