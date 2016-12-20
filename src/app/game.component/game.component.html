@@ -1,0 +1,19 @@
+<h1>{{ status ||  (isStarted() ? '' : 'ROCK-PAPER SCISSORS')}}</h1>
+
+<div class="hands-flex-row" *ngIf="isStarted()">
+    <div [ngClass]="{animated: !userSelection && interval}">
+        <div class="hand-image" [ngClass]="getCardClass(userSelection)" title="{{userSelection}}"></div>
+    </div>
+    <div *ngIf="isStarted()" class="game-timer">{{time}}</div>
+    <div [ngClass]="{animated: interval}" class="mirror-animated">
+        <div class="hand-image mirror" [ngClass]="getCardClass(aiSelection)" title="{{aiSelection}}"></div>
+    </div>
+</div>
+
+<div class="hands-flex-row scaled">
+    <div class="hand-image {{type}}" [ngClass]="{selected: type === userSelection}"
+         *ngFor="let type of TYPES" (click)="selectHand(type)" title="{{type}}">
+    </div>
+</div>
+
+<button (click)="play()" *ngIf="!isRunning()"> {{isStarted() ? 'PLAY AGAIN': 'START'}}</button>
