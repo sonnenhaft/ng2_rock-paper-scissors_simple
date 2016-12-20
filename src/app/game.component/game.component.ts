@@ -24,11 +24,11 @@ export default class GameComponent {
     protected isGameStarted: boolean = false;
     protected intervalSubscriber;
 
-    public status: string;
-    public gameTime: number;
-    public userSelection: string;
-    public aiSelection: string;
-    public TYPES = ['rock', 'paper', 'scissors']
+    status: string;
+    gameTime: number;
+    userSelection: string;
+    aiSelection: string;
+    TYPES = ['rock', 'paper', 'scissors']
 
     constructor() {
         this.status = GameComponent.STATUSES['initial'];
@@ -42,7 +42,7 @@ export default class GameComponent {
         return !!this.intervalSubscriber
     }
 
-    protected safelyUnsubscribeFromInterval() {
+    safelyClearInterval() {
         if (this.isRunning()) {
             this.intervalSubscriber.unsubscribe()
             this.intervalSubscriber = null
@@ -79,12 +79,14 @@ export default class GameComponent {
         }
     }
 
-    protected stopGame() {
-        this.safelyUnsubscribeFromInterval();
+    stopGame() {
+        this.safelyClearInterval();
         if (!this.userSelection) {
             this.userSelection = this.getRandomCard();
         }
-        this.aiSelection = this.getRandomCard();
+        if (!this.aiSelection) {
+            this.aiSelection = this.getRandomCard();
+        }
 
         if (this.userSelection === this.aiSelection) {
             this.status = GameComponent.STATUSES['nobodyWin']
@@ -100,6 +102,6 @@ export default class GameComponent {
     }
 
     ngOnDestroy() { // TODO extend from onDestory from core
-        this.safelyUnsubscribeFromInterval();
+        this.safelyClearInterval();
     }
 }
