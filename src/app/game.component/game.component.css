@@ -122,3 +122,27 @@ button {
 .stats .bold {
     font-weight: bold;
 }
+
+.history-data {
+    position: absolute;
+    left: 0;
+    top: 8px;
+    max-height: 400px;
+    overflow-x: hidden;
+    width: 80px;
+    overflow-y: auto;
+}
+
+.history-data-row {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+.history-data-row.win { background: #d3ffd3; }
+.history-data-row.lose { background: #ffdcdc; }
+.history-data-row.nobodyWin { background: whitesmoke; }
+
+.scaled-history-image {
+    transform: scale(0.2,0.2);
+    width: 27px;
+}
