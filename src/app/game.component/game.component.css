@@ -5,7 +5,7 @@
 }
 
 .hand-image {
-    background-image: url('./ROCK-PAPER-SCISSORS.png');
+    background-image: url('/assets/ROCK-PAPER-SCISSORS.png');
     width: 125px;
     height: 124px;
     background-position-x: -24px;
