@@ -21,6 +21,8 @@ export default class GameComponent {
         lose: `you've loosed(`
     }
 
+    stats = {nobodyWin: 0, win:0, lose: 0}
+
     protected isGameStarted: boolean = false;
     protected intervalSubscriber;
 
@@ -90,10 +92,13 @@ export default class GameComponent {
 
         if (this.userSelection === this.aiSelection) {
             this.status = GameComponent.STATUSES['nobodyWin']
+            this.stats['nobodyWin']++;
         } else if (GameComponent.WINS_MAP[this.userSelection][this.aiSelection]) {
             this.status = GameComponent.STATUSES['win'];
+            this.stats['win']++;
         } else {
             this.status = GameComponent.STATUSES['lose']
+            this.stats['lose']++;
         }
     }
 
