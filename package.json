@@ -1,7 +1,7 @@
 {
   "name": "angular2-webpack-starter",
   "version": "5.1.1",
-  "description": "An Angular 2 Webpack Starter kit featuring Angular 2 (Router, Http, Forms, Services, Tests, E2E, Coverage), Karma, Protractor, Jasmine, Istanbul, TypeScript, and Webpack by AngularClass",
+  "description": "ROCK-PAPER-SCISSORS based on angualr2-webpack-starter",
   "keywords": [
     "angular2",
     "webpack",
@@ -107,6 +107,7 @@
     "parse5": "^2.2.2",
     "protractor": "^4.0.10",
     "raw-loader": "0.5.1",
+    "remap-istanbul": "^0.8.0",
     "rimraf": "~2.5.4",
     "script-ext-html-webpack-plugin": "^1.3.2",
     "source-map-loader": "^0.1.5",

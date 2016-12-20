@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {Observable} from "rxjs";
 
 @Component({
     selector: 'home',
@@ -7,23 +8,24 @@ import {Component} from '@angular/core';
 })
 export default class GameComponent {
     static GAME_DURATION: number = 4
-    static WINS_MAP: Map<string, Object> = {
+    static TIMER_TICK_DURATON: number = 500
+    static WINS_MAP = {
         rock: {paper: false, scissors: true},
         paper: {rock: true, scissors: false},
         scissors: {rock: false, paper: true},
     }
-    static STATUSES: Map<string, string> = {
-        initial: 'ROCK-PAPER SCISSORS',
+    static STATUSES = {
+        initial: 'ROCK-PAPER-SCISSORS',
         nobodyWin: 'nobody won',
         win: `you've won!`,
         lose: `you've loosed(`
     }
 
     protected isGameStarted: boolean = false;
-    protected interval: number;
+    protected intervalSubscriber;
 
     public status: string;
-    public time: number;
+    public gameTime: number;
     public userSelection: string;
     public aiSelection: string;
     public TYPES = ['rock', 'paper', 'scissors']
@@ -37,17 +39,17 @@ export default class GameComponent {
     }
 
     isRunning(): boolean {
-        return !!this.interval
+        return !!this.intervalSubscriber
     }
 
-    protected safelyClearInterval() {
+    protected safelyUnsubscribeFromInterval() {
         if (this.isRunning()) {
-            window.clearInterval(this.interval);
-            this.interval = null
+            this.intervalSubscriber.unsubscribe()
+            this.intervalSubscriber = null
         }
     }
 
-    getCardClass(className: string): Map<string, boolean> {
+    getCardClass(className: string) {
         return {[className]: true}
     }
 
@@ -58,13 +60,17 @@ export default class GameComponent {
         this.userSelection = null;
         this.aiSelection = null;
 
-        this.time = GameComponent.GAME_DURATION;
-        this.interval = setInterval(() => {
-            this.time -= 1;
-            if (!this.time) {
-                this.stopGame();
-            }
-        }, 1000);
+        this.gameTime = GameComponent.GAME_DURATION;
+
+        // yep, decided decrease second to half of a second
+        this.intervalSubscriber = Observable
+            .interval(GameComponent.TIMER_TICK_DURATON)
+            .timeInterval().take(GameComponent.GAME_DURATION)
+            .subscribe(
+                x => this.gameTime = GameComponent.GAME_DURATION - x.value - 1,
+                null,
+                () => this.stopGame()
+            );
     }
 
     selectHand(type: string) {
@@ -74,7 +80,7 @@ export default class GameComponent {
     }
 
     protected stopGame() {
-        this.safelyClearInterval();
+        this.safelyUnsubscribeFromInterval();
         if (!this.userSelection) {
             this.userSelection = this.getRandomCard();
         }
@@ -94,6 +100,6 @@ export default class GameComponent {
     }
 
     ngOnDestroy() { // TODO extend from onDestory from core
-        this.safelyClearInterval();
+        this.safelyUnsubscribeFromInterval();
     }
 }
