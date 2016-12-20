@@ -1,39 +1,76 @@
-import { Component } from '@angular/core';
-
-import { AppState } from '../app.service';
-import { Title } from './title';
-import { XLarge } from './x-large';
+import {Component} from '@angular/core';
+import {Component} from '@angular/core';
+import {AppState} from '../app.service';
 
 @Component({
-  // The selector is what angular internally uses
-  // for `document.querySelectorAll(selector)` in our index.html
-  // where, in this case, selector is the string 'home'
-  selector: 'home',  // <home></home>
-  // We need to tell Angular's Dependency Injection which providers are in our app.
-  providers: [
-    Title
-  ],
-  // Our list of styles in our component. We may add more to compose many styles together
-  styleUrls: [ './home.component.css' ],
-  // Every Angular template is first compiled by the browser before Angular runs it's compiler
-  templateUrl: './home.component.html'
+    selector: 'home',
+    styleUrls: ['./home.component.css'],
+    templateUrl: './home.component.html'
 })
 export class HomeComponent {
-  // Set our default values
-  localState = { value: '' };
-  // TypeScript public modifiers
-  constructor(public appState: AppState, public title: Title) {
+    time = 0;
+    interval = null;
+    isGameStarted = false;
+    userSelection = null;
+    status = null;
+    aiSelection = null;
+    TYPES = ['rock', 'paper', 'scissors']
 
-  }
+    WONS_MAP = {
+        rock: {paper: false, scissors: true },
+        paper: {rock: true, scissors: false },
+        scissors: {rock: false, paper: true },
+    }
 
-  ngOnInit() {
-    console.log('hello `Home` component');
-    // this.title.getData().subscribe(data => this.data = data);
-  }
+    constructor(public appState: AppState) {
+    }
 
-  submitState(value: string) {
-    console.log('submitState', value);
-    this.appState.set('value', value);
-    this.localState.value = '';
-  }
+    clearInterval() {
+        if (this.interval) {
+            window.clearInterval(this.interval);
+            this.interval = null
+        }
+    }
+
+    getClass(className) {
+        return {[className]: true}
+    }
+
+    play() {
+        this.time = 1;
+        this.status = null;
+        this.userSelection = null;
+        this.aiSelection = null;
+        this.isGameStarted = true;
+        this.interval = setInterval(() => {
+            this.time -= 1;
+            if (!this.time) {
+                this.stopGame();
+            }
+        }, 1000);
+    }
+
+    selectClass(type){
+        this.userSelection = type
+    }
+
+    stopGame() {
+        this.clearInterval();
+        if (!this.userSelection) {
+            this.userSelection = this.TYPES[Math.floor(Math.random() * this.TYPES.length)]
+        }
+        this.aiSelection = this.TYPES[Math.floor(Math.random() * this.TYPES.length)]
+
+        if (this.userSelection === this.aiSelection) {
+            this.status = 'nobody won'
+        } else if(this.WONS_MAP[this.userSelection][this.aiSelection]) {
+            this.status = `you've won!`
+        } else {
+            this.status = `you've loosed(`
+        }
+    }
+
+    ngOnDestroy() { // TODO extend from onDestory from core
+        this.clearInterval();
+    }
 }
