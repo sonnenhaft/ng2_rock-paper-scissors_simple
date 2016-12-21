@@ -7,8 +7,8 @@ import {Observable} from "rxjs";
     templateUrl: 'game.component.html'
 })
 export default class GameComponent {
-    static GAME_DURATION: number = 1
-    static TIMER_TICK_DURATON: number = 500
+    static GAME_DURATION: number = 4
+    static TIMER_TICK_DURATION: number = 500
     static WINS_MAP = {
         rock: {paper: false, scissors: true},
         paper: {rock: true, scissors: false},
@@ -67,7 +67,7 @@ export default class GameComponent {
 
         // yep, decided decrease second to half of a second
         this.intervalSubscriber = Observable
-            .interval(GameComponent.TIMER_TICK_DURATON)
+            .interval(GameComponent.TIMER_TICK_DURATION)
             .timeInterval().take(GameComponent.GAME_DURATION)
             .subscribe(
                 x => this.gameTime = GameComponent.GAME_DURATION - x.value - 1,
