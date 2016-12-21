@@ -123,6 +123,10 @@ button {
     font-weight: bold;
 }
 
+.hidden {
+    visibility: hidden;
+}
+
 .history-data {
     position: absolute;
     left: 0;
