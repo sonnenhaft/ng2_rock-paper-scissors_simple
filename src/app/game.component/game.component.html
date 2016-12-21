@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<button (click)="play()" *ngIf="!isRunning()"> {{isStarted() ? 'PLAY AGAIN': 'START'}}</button>
+<button (click)="play()" [ngClass]="{hidden: !isRunning}"> {{isStarted() ? 'PLAY AGAIN': 'START'}}</button>
 <div *ngIf="isStarted()" class="stats">
     won / lose / nobody / total
     <div class="bold">{{stats.win}} / {{stats.lose}} / {{stats.nobodyWin}} / {{stats.win + stats.lose + stats.nobodyWin}}</div>
