@@ -1,0 +1,17 @@
+{
+  "vendor": {
+    "js": "./vendor.f34e622e981de703287e.bundle.js"
+  },
+  "main": {
+    "js": "./main.3675b89d88b8ae3cdc59.bundle.js"
+  },
+  "polyfills": {
+    "js": "./polyfills.18e2880f22a7621869f3.bundle.js"
+  },
+  "": {
+    "json": "./assets/data.json",
+    "png": "./assets/ROCK-PAPER-SCISSORS.png",
+    "js": "./assets/service-worker.js",
+    "html": "./index.html"
+  }
+}
