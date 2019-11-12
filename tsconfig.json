@@ -18,7 +18,6 @@
     ],
     "types": [
       "hammerjs",
-      "jasmine",
       "node",
       "selenium-webdriver",
       "source-map",

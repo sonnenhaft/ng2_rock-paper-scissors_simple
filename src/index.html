@@ -13,14 +13,15 @@
   <!-- Configured Head Tags  -->
   <%= webpackConfig.htmlElements.headTags %>
   <% } %>
-
-  <!-- base url -->
-  <base href="<%= htmlWebpackPlugin.options.metadata.baseUrl %>">
-
-
 </head>
 
+
 <body style="margin: 0">
+<style>
+  .hand-image {
+    background-image: url(./assets/ROCK-PAPER-SCISSORS.png);
+  }
+</style>
   <!--TODO add server side prerendering-->
   <app>Loading...</app>
 
