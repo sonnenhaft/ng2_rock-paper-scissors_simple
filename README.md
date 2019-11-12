@@ -36,4 +36,4 @@ npm run-script build
 ```
 
 ### Demo (output in /dist folder)
-http://rock-paper-scissors-20-dec-2016.bitballoon.com/ password: gamesys 
+https://sonnenhaft.github.io/ng2_rock-paper-scissors_simple/#/
