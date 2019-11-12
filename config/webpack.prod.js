@@ -48,6 +48,7 @@ module.exports = function (env) {
      * See: http://webpack.github.io/docs/configuration.html#output
      */
     output: {
+      publicPath: '.',
 
       /**
        * The output directory as absolute path (required).
